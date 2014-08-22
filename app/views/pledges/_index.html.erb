@@ -1,0 +1,13 @@
+<ul class="media-list">
+<% @pledges.each do |pledge| %>
+  <li class="media">
+     <a class="pull-left" href="#">
+      <%= image_tag('profile.jpeg', class: 'profile-image') %>
+    </a>
+    <div class="media-body">
+      <h5 class="media-heading"><%= pledge.name %></h5>
+      <span class="time"><%= time_ago_in_words(pledge.created_at) %> ago</span>
+    </div>
+  </li>  
+<% end  %>
+</ul>

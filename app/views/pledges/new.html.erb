@@ -1,0 +1,31 @@
+<div class="header">
+    <h1><%= @project.name %></h1>
+    <h4>by <%= @project.team_members %></h4>
+</div>
+
+<div class="container-border">
+	<div class="col-md-8">
+	  		<%= form_for([@project, @pledge]) do |f| %>
+	  		<%= render 'shared/errors', object: @pledge %>
+	  		<div class="form-group">
+			    <%= f.label :amount, 'Enter your pledge amount' %>
+				<%= f.number_field :amount, class: 'form-control form-lg' %>
+			</div>	
+
+			<div class="form-group short">
+			    <%= f.label :name, 'Enter your name' %>
+				<%= f.text_field :name, class: 'form-control' %>
+			</div>	
+			
+			<%= f.submit 'Make a Pledge!', class: 'btn btn-lg btn-success' %>
+			<% end %>
+	</div>
+
+	<div class="col-md-4">
+		<div class="green-box">
+		<strong>IMPORTANT</strong>
+<p>Kickstarter does not guarantee projects or investigate a creator's ability to complete their project. It is the responsibility of the project creator to complete their project as promised, and the claims of this project are theirs alone.</p>
+<a href="#">Learn more about accountability</a>
+	 	</div>
+	</div>
+</div>

@@ -1,0 +1,65 @@
+<div class="header">
+    <h1><%= @project.name %></h1>
+    <h4>by <%= @project.team_members %></h4>
+
+</div>
+
+<div class="container-border">
+  <div class="row">
+<div class="col-md-8">
+     <%= image_tag(@project.image_file_name, class: 'main-image') %>
+    <hr></hr>
+   <div class="row">
+  	<%= @project.description %>
+  </div>
+  
+  	<ul class="pager">
+  <li class="previous">
+  	<%= link_to '<span class="glyphicon glyphicon-pencil"></span> Edit'.html_safe, edit_project_path %></li>
+  	<li class="previous">
+  	<%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, @project, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+</ul>
+ </div>
+
+ <div class="col-md-4">
+  <div class="row">
+   <strong>
+     <h1><%= @project.pledges.count %></h1>
+       <%= 'backer'.pluralize(@project.pledges.count) %>
+ </strong>
+  </div>
+    
+   <div class="row">
+   <strong>
+     <h1><%= number_to_currency(@project.pledge_amount_sum, precision:0) %></h1>
+     pledged of <%= number_to_currency(@project.target_pledge_amount, precision:0) %> goal
+ </strong>
+  </div>
+
+  <div class="row"><strong>
+    <h1>
+  	<%= distance_of_time_in_words(Time.now, @project.pledging_ends_on) %> </h1>
+  	to go
+  </strong>
+   </div>
+
+   <%= button_to "Back This Project", new_project_pledge_path(@project), method: :get, class: "btn btn-success btn-lg btn-block" %>
+   <hr></hr>
+
+   <div class="row">
+  <h4>Website</h4>
+  <%= link_to "#{@project.website}", @project.website, target: '_blank' %>
+</div>
+<hr></hr>
+    <div class="row">
+    
+     <h4>Backers</h4>
+     
+       <%= render 'pledges/index' %>
+  </div>
+   
+
+ </div>
+</div>
+</div>
+
