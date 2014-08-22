@@ -1,13 +1,20 @@
 class Project < ActiveRecord::Base
 
+  has_attached_file :image
+
   validates :name, :pledging_ends_on, presence: true
   validates :description, length: { minimum: 5 }
   validates :target_pledge_amount, numericality: {
   	 greater_than: 0
   }
   validates :website, url: true
+  validates_attachment :image, 
+  :content_type => { :content_type => ['image/jpeg', 'image/png'] },
+  :size => { :less_than => 1.megabyte }
+
 
   has_many :pledges, dependent: :destroy
+  
 
   def expired?
   	pledging_ends_on < Time.now

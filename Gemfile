@@ -42,3 +42,6 @@ gem 'spring',        group: :development
 
 gem 'validate_url'
 
+gem 'paperclip'
+gem 'aws-sdk'
+

@@ -15,4 +15,5 @@ module ProjectsHelper
   	  number_to_percentage(project.pledge_percentage, precision:1)
   	end
   end
+
 end
