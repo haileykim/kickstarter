@@ -1,0 +1,23 @@
+<h2><%= pluralize(@users.count, 'user') %> </h2>
+
+<table class="table table-striped"> 
+  
+    <thead>
+    <tr>
+    	<th>Image </th>
+    	<th>Name </th>
+    	<th>Email</th>
+    	<th>Member Since</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+      	<td><%= link_to profile_image_for(user), user %>
+        <td><%= link_to user.name, user %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+      </tr>
+    </tbody>
+ <% end %>
+</table>

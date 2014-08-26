@@ -10,8 +10,6 @@
         <h5><%= link_to project.name, project %></h5>
         <p><%= truncate(project.description, length: 150, seperator: ' ') %></p>
        <%= render 'shared/progress_bar', object: project.pledge_percentage %>
-       
-		</div>
 
         <div class="info-box">
         	<ul>
@@ -27,7 +25,7 @@
         	   		<span><strong><%= pledge_end_format(project) %></strong></span><br>
         	   		<span>To Go</span>
         	   	</li>
-            <ul>
+            </ul>
         </div>
 
       </div>
