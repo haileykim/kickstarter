@@ -1,12 +1,38 @@
-<h2><%= @user.name %></h2>
 
-<p> Email: <%= @user.email %></p>
-<p> Member since: <%= @user.created_at.strftime("%B %Y") %></p>
-<p> <%= profile_image_for(@user) %>
+<div class="profile-box">
+	<div class ="profile-image" >
+       <%= profile_image_for(@user, size: 160) %>
+    </div>
+    <div class="profile-info">
+      <h2><%= @user.name %></h2>
+      <p style="font-size:16px;">
+        Backed <%= pluralize(@user.pledges.count, 'project') %> · 
+      	Joined <%= @user.created_at.strftime("%B %Y") %>
+      </p>
+     <ul class="pager">
+		<% if current_user?(@user) %>
+  		<li class="previous">
+  		<%= link_to '<span class="glyphicon glyphicon-pencil"></span> Edit'.html_safe, edit_user_path %></li>
+  			<li class="previous">
+  			<%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, @user, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+		<% end %>
+		</ul>
+    </div>
+</div>
 
-<ul class="pager">
-  <li class="previous">
-  	<%= link_to '<span class="glyphicon glyphicon-pencil"></span> Edit'.html_safe, edit_user_path %></li>
-  	<li class="previous">
-  	<%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, @user, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-</ul>
+<hr>
+
+ <h3>Backed (<%= @user.pledges.count %>)</h3>
+
+ <div class="row">
+ <%  @pledges.each do |pledge| %>
+   <div class="col-sm-6 col-md-3">
+     <div class="thumbnail">
+        <%= link_to image_for(pledge.project), pledge.project %>
+        <div class="caption">
+          <h5><%= link_to pledge.project.name, pledge.project %></h5>
+        </div>
+     </div>
+   </div>  
+<% end %>
+</div>

@@ -13,12 +13,14 @@
   	<%= @project.description %>
   </div>
   
-  	<ul class="pager">
+<% if current_user_admin?  %>
+<ul class="pager">
   <li class="previous">
   	<%= link_to '<span class="glyphicon glyphicon-pencil"></span> Edit'.html_safe, edit_project_path %></li>
   	<li class="previous">
   	<%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, @project, method: :delete, data: { confirm: 'Are you sure?' } %></li>
 </ul>
+<% end %>
  </div>
 
  <div class="col-md-4">

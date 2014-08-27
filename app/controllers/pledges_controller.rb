@@ -1,4 +1,8 @@
 class PledgesController < ApplicationController
+
+  before_action :require_signin
+  before_action :require_admin, only: [:destroy]
+  
   before_action :set_project
 
   def new
@@ -7,6 +11,7 @@ class PledgesController < ApplicationController
 
   def create
   	@pledge = @project.pledges.new(pledge_params)
+    @pledge.user = current_user
   	
   	if @pledge.save
   	  redirect_to @project, notice: 'Thank you for your pledge!'
@@ -15,6 +20,13 @@ class PledgesController < ApplicationController
   	end
   end
 
+  def destroy
+    @pledge = @project.pledges.find(params[:id])
+    @pledge.destroy
+    redirect_to @project, notice: 'Pledge is deleted!'
+  end
+
+
 private
 
   def set_project
@@ -22,6 +34,6 @@ private
   end
 
   def pledge_params
-  	params.require(:pledge).permit(:amount, :name)
+  	params.require(:pledge).permit(:amount)
   end
 end

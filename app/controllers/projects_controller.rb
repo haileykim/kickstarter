@@ -1,5 +1,8 @@
 class ProjectsController < ApplicationController
 
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
+
   def index
     @projects = Project.pledging
   end
@@ -7,6 +10,19 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @pledges = @project.pledges.order(created_at: :desc)
+  end
+
+  def new
+    @project = Project.new
+  end
+
+  def create
+    @project = Project.create(project_params)
+    if @project.save
+      redirect_to @project, notice: 'Your project is successfully created!'
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -20,19 +36,6 @@ class ProjectsController < ApplicationController
     else
       render 'edit'
     end 	
-  end
-
-  def new
-  	@project = Project.new
-  end
-
-  def create
-  	@project = Project.create(project_params)
-  	if @project.save
-  	  redirect_to @project, notice: 'Your project is successfully created!'
-    else
-      render 'new'
-    end
   end
 
   def destroy

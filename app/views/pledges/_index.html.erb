@@ -1,13 +1,16 @@
 <ul class="media-list">
 <% @pledges.each do |pledge| %>
   <li class="media">
-     <a class="pull-left" href="#">
-      <%= image_tag('profile.jpeg', class: 'profile-image') %>
-    </a>
+     <%= link_to profile_image_for(pledge.user), pledge.user, class: 'pull-left' %>
+    
     <div class="media-body">
-      <h5 class="media-heading"><%= pledge.name %></h5>
+      <h5 class="media-heading"><%= link_to pledge.user.name, pledge.user %></h5>
       <span class="time"><%= time_ago_in_words(pledge.created_at) %> ago</span>
     </div>
+
+    <% if current_user_admin? %>
+    <%= link_to 'Delete', project_pledge_path(@project, pledge), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
   </li>  
 <% end  %>
 </ul>

@@ -16,6 +16,7 @@ body > .container {
 	font-weight: bold;
 }
 
+
 .btn-lg {
 	height: 70px;
 }  
@@ -60,10 +61,8 @@ h5 a {
        margin: 20px 0;
 }
 
-.profile-image {
-	width: 50px;
-	height: 50px;
-}
+
+	
 
 .form-group {
 	max-width: 600px;
@@ -145,4 +144,19 @@ h5 a {
 	border-radius: 5px;
 	overflow: hidden;
 	background-color: #FFFFFF;
+}
+
+
+/* User */
+
+.profile-box {
+	width: 100%;
+	overflow: hidden
+}
+.profile-image { 
+    margin: 20px 20px 20px 0px;
+    float: left;
+  }
+.profile-info {
+	float: left;
 }

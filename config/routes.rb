@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   
+  root 'projects#index'
+
+  get 'login' => "sessions#new"
+  resource :session
+ 
   get 'signup' => 'users#new'  
   resources :users
 
-  root 'projects#index'
   resources :projects do
     resources :pledges
   end
