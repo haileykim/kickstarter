@@ -6,8 +6,8 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
              <li><%= link_to "Discover", projects_path %></li>
-             <% if current_user_admin?  %>
              <li><%= link_to "Start", new_project_path %></li>
+             <% if current_user_admin?  %>
              <li><%= link_to "Admin", users_path %>
              <% end  %>
           </ul>

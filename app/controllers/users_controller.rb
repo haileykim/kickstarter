@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
+    @projects = @user.projects.order(created_at: :desc)
     @pledges = @user.pledges.order(created_at: :desc)
   end
 

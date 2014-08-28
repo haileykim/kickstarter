@@ -1,6 +1,6 @@
 <div class="header">
     <h1><%= @project.name %></h1>
-    <h4>by <%= @project.team_members %></h4>
+    <h4>by <%= link_to @project.user.name, @project.user %></h4>
 
 </div>
 
@@ -13,7 +13,7 @@
   	<%= @project.description %>
   </div>
   
-<% if current_user_admin?  %>
+<% if current_user?(@project.user)  %>
 <ul class="pager">
   <li class="previous">
   	<%= link_to '<span class="glyphicon glyphicon-pencil"></span> Edit'.html_safe, edit_project_path %></li>

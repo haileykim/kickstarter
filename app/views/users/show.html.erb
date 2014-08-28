@@ -6,7 +6,8 @@
     <div class="profile-info">
       <h2><%= @user.name %></h2>
       <p style="font-size:16px;">
-        Backed <%= pluralize(@user.pledges.count, 'project') %> · 
+        Created <%= pluralize(@projects.count, 'project') %> · 
+        Backed <%= pluralize(@pledges.count, 'project') %> · 
       	Joined <%= @user.created_at.strftime("%B %Y") %>
       </p>
      <ul class="pager">
@@ -22,8 +23,27 @@
 
 <hr>
 
- <h3>Backed (<%= @user.pledges.count %>)</h3>
+<% if @projects.any?  %>
+ <h3>Created (<%= @projects.count %>)</h3>
+ <div class="row">
+ <%  @projects.each do |project| %>
+   <div class="col-sm-6 col-md-4">
+     <div class="thumbnail">
+        <%= link_to image_for(project), project %>
+        <div class="caption">
+          <h5><%= link_to project.name, project %></h5>
+        </div>
+     </div>
+   </div>  
+<% end %>
+</div>
+<% end %>
 
+
+
+<% if @pledges.any?  %>
+<hr>
+ <h3>Backed (<%= @pledges.count %>)</h3>
  <div class="row">
  <%  @pledges.each do |pledge| %>
    <div class="col-sm-6 col-md-3">
@@ -36,3 +56,4 @@
    </div>  
 <% end %>
 </div>
+<% end  %>

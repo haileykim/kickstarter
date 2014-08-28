@@ -1,5 +1,8 @@
 class Project < ActiveRecord::Base
 
+  has_many :pledges, dependent: :destroy
+  belongs_to :user
+
   has_attached_file :image
 
   validates :name, :pledging_ends_on, presence: true
@@ -13,7 +16,7 @@ class Project < ActiveRecord::Base
   :size => { :less_than => 1.megabyte }
 
 
-  has_many :pledges, dependent: :destroy
+  
   
 
   def expired?
