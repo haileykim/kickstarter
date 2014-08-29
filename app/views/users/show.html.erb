@@ -7,9 +7,10 @@
       <h2><%= @user.name %></h2>
       <p style="font-size:16px;">
         Created <%= pluralize(@projects.count, 'project') %> · 
-        Backed <%= pluralize(@pledges.count, 'project') %> · 
+        Backed <%= pluralize(@backed_projects.count, 'project') %> · 
       	Joined <%= @user.created_at.strftime("%B %Y") %>
       </p>
+
      <ul class="pager">
 		<% if current_user?(@user) %>
   		<li class="previous">
@@ -18,6 +19,8 @@
   			<%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, @user, method: :delete, data: { confirm: 'Are you sure?' } %></li>
 		<% end %>
 		</ul>
+
+
     </div>
 </div>
 
@@ -25,35 +28,19 @@
 
 <% if @projects.any?  %>
  <h3>Created (<%= @projects.count %>)</h3>
- <div class="row">
- <%  @projects.each do |project| %>
-   <div class="col-sm-6 col-md-4">
-     <div class="thumbnail">
-        <%= link_to image_for(project), project %>
-        <div class="caption">
-          <h5><%= link_to project.name, project %></h5>
-        </div>
-     </div>
-   </div>  
-<% end %>
+   <%= render 'shared/thumbnail_big', object: @projects %>
 </div>
 <% end %>
 
 
-
-<% if @pledges.any?  %>
+<% if @backed_projects.any?  %>
 <hr>
- <h3>Backed (<%= @pledges.count %>)</h3>
- <div class="row">
- <%  @pledges.each do |pledge| %>
-   <div class="col-sm-6 col-md-3">
-     <div class="thumbnail">
-        <%= link_to image_for(pledge.project), pledge.project %>
-        <div class="caption">
-          <h5><%= link_to pledge.project.name, pledge.project %></h5>
-        </div>
-     </div>
-   </div>  
+ <h3>Backed (<%= @backed_projects.count %>)</h3>
+   <%= render 'shared/thumbnail_small', object: @backed_projects %>
 <% end %>
-</div>
-<% end  %>
+
+<% if @favorite_projects.any?  %>
+<hr>
+ <h3>Favorites (<%= @favorite_projects.count %>)</h3>
+   <%= render 'shared/thumbnail_small', object: @favorite_projects %>
+<% end %>

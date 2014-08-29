@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828081957) do
+ActiveRecord::Schema.define(version: 20140829122201) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "favorites", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["project_id"], name: "index_favorites_on_project_id"
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
 
   create_table "pledges", force: true do |t|
     t.decimal  "amount"
@@ -37,6 +53,16 @@ ActiveRecord::Schema.define(version: 20140828081957) do
     t.datetime "image_updated_at"
     t.integer  "user_id"
   end
+
+  create_table "tags", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["category_id"], name: "index_tags_on_category_id"
+  add_index "tags", ["project_id"], name: "index_tags_on_project_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

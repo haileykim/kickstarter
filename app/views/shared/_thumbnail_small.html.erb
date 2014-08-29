@@ -1,0 +1,12 @@
+<div class="row">
+ <%  object.each do |project| %>
+   <div class="col-sm-6 col-md-3">
+     <div class="thumbnail">
+        <%= link_to image_for(project), project %>
+        <div class="caption">
+          <h5><%= link_to project.name, project %></h5>
+        </div>
+     </div>
+   </div> 
+<% end  %>
+ </div>

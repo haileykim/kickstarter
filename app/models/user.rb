@@ -1,7 +1,12 @@
 class User < ActiveRecord::Base
   
   has_many :projects, dependent: :destroy
+
   has_many :pledges, dependent: :destroy
+  has_many :backed_projects, through: :pledges, source: :project
+
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_projects, through: :favorites, source: :project
 
   has_secure_password
 

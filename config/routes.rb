@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :categories
+
   root 'projects#index'
 
   get 'login' => "sessions#new"
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :pledges
+    resources :favorites
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

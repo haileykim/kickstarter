@@ -1,0 +1,12 @@
+  <ul class="media-list">
+      <% object.each do |user| %>
+       <li class="media">
+             <%= link_to profile_image_for(user), user, class: 'pull-left' %>
+                 <div class="media-body">
+                <h5 class="media-heading"><%= link_to user.name, user %></h5>
+                     <span class="time"><%= time_ago_in_words(user.created_at) %> ago</span>
+                </div>
+           
+              </li>  
+          <% end  %>
+  </ul>

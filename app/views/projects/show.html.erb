@@ -4,15 +4,26 @@
 
 </div>
 
+
 <div class="container-border">
   <div class="row">
 <div class="col-md-8">
      <%= image_for(@project) %>
     <hr></hr>
+
+
+  <div class="row">
+    <% @categories.each do |category| %>
+      <span class="label label-default"><%= category.name %></span>
+    <% end %>
+  </div>
+
+
    <div class="row">
   	<%= @project.description %>
   </div>
-  
+
+
 <% if current_user?(@project.user)  %>
 <ul class="pager">
   <li class="previous">
@@ -21,6 +32,8 @@
   	<%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, @project, method: :delete, data: { confirm: 'Are you sure?' } %></li>
 </ul>
 <% end %>
+
+
  </div>
 
  <div class="col-md-4">
@@ -45,21 +58,37 @@
   </strong>
    </div>
 
-   <%= button_to "Back This Project", new_project_pledge_path(@project), method: :get, class: "btn btn-success btn-lg btn-block" %>
-   <hr></hr>
+<!-- Pledge Button -->
+   <% if @current_pledge  %>
+      <button class="btn btn-success btn-lg btn-block" disabled>You've already pledged!</button><br>
+   <% else  %>
+   <%= button_to "Back This Project", new_project_pledge_path(@project), method: :get, class: "btn btn-success btn-lg btn-block" %><br>
+   <% end  %>
 
-   <div class="row">
-  <h4>Website</h4>
-  <%= link_to "#{@project.website}", @project.website, target: '_blank' %>
-</div>
-<hr></hr>
+<!-- Favorite Button -->
+    <% if @current_favorite %>
+      <%= link_to '<span class="glyphicon glyphicon-heart"></span> Remove from Fav'.html_safe, project_favorite_path(@project, @current_favorite), method: :delete, class: "unfav" %>   
+    <% else  %>
+      <%= link_to '<span class="glyphicon glyphicon-heart"></span> Add to Fav'.html_safe, project_favorites_path(@project), method: :post, class: "fav" %> 
+   <% end  %>
+  
+<!-- Fans -->
+<% if @fans.any? %>
+  <hr></hr>
     <div class="row">
-    
-     <h4>Backers</h4>
-     
-       <%= render 'pledges/index' %>
-  </div>
-   
+      <h4>Fans (<%= @fans.count %>)</h4>
+        <%= render 'profilelist', object: @fans  %>
+    </div>
+<% end %>
+
+<!-- Backers -->
+<% if @backers.any? %>
+  <hr></hr>
+    <div class="row">
+      <h4>Backers (<%= @backers.count %>)</h4>
+        <%= render 'profilelist', object: @backers  %>
+    </div>
+<% end %>
 
  </div>
 </div>

@@ -96,7 +96,7 @@ h5 a {
 
 .container-border {
 	width: 100%;
-	margin: 30px 0 50px 0;
+	margin: 5px 0 50px 0;
 	padding: 30px 10px 30px 10px;
 	border: 1px solid #f0f0f0;
 	border-radius: 5px;
@@ -160,3 +160,28 @@ h5 a {
 .profile-info {
 	float: left;
 }
+
+.btn-success {
+ background-color: #2bde73;
+ border-color: #ffffff;
+}
+
+.fav {
+	font-size: 16px;
+	font-weight: bold;
+	color: #2bde73;
+}
+
+.unfav {
+	font-size: 16px;
+	font-weight: bold;
+	color: #828587;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+	background-color: #2bde73;
+}
+
+input[type="radio"], input[type="checkbox"] {
+ margin: 4px 8px 0px 5px;
+ }

@@ -11,14 +11,14 @@
     <%= f.text_area :description, rows: 7, class: "form-control" %>
   </div>
 
-  <div class="form-group short">
-    <%= f.label :target_pledge_amount %>
-    <%= f.number_field :target_pledge_amount, class: "form-control" %>
+  <div class="form-group">
+    <%= f.label :category %> <br/>
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
   </div>
 
   <div class="form-group short">
-    <%= f.label :website %>
-    <%= f.text_field :website, class: "form-control" %>
+    <%= f.label :target_pledge_amount %>
+    <%= f.number_field :target_pledge_amount, class: "form-control" %>
   </div>
 
   <div class="form-group short">

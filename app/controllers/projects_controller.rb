@@ -9,6 +9,14 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @pledges = @project.pledges.order(created_at: :desc)
+    @backers = @project.backers
+    @fans = @project.fans
+    @categories = @project.categories
+
+    if current_user
+      @current_pledge = current_user.pledges.find_by(project_id: @project.id)
+      @current_favorite = current_user.favorites.find_by(project_id: @project.id)
+    end
   end
 
   def new
@@ -27,13 +35,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
-    check_project_owner(@project)
+    @project = current_user.projects.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
-    check_project_owner(@project)
+    @project = current_user.projects.find(params[:id])
   	if @project.update(project_params)
   	  redirect_to @project, notice: 'Your project is successfully edited!'
     else
@@ -42,19 +48,14 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
-    check_project_owner(@project)
+    @project = current_user.projects.find(params[:id])
     @project.delete
     redirect_to root_path, notice: 'Your project is gone!'
   end
 
 private
   def project_params
-  	params.require(:project).permit(:name, :description, :target_pledge_amount, :website, :pledging_ends_on, :image)
-  end
-
-  def check_project_owner(project)
-    redirect_to root_path unless current_user?(project.user)
+  	params.require(:project).permit(:name, :description, :target_pledge_amount, :pledging_ends_on, :image, category_ids: [])
   end
 
 end
