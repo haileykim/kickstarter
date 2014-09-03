@@ -1,9 +1,9 @@
 class RemoveFieldFromProject < ActiveRecord::Migration
   def up
-  	remove_column :projects, :team_member
+  	remove_column :projects, :team_members
   end
 
   def down
-    add_column :projects, :team_member, :string
+    add_column :projects, :team_members, :string
   end
 end
