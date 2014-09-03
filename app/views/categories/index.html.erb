@@ -1,0 +1,47 @@
+<div class="container">
+<div class="jumbotron">
+  <h1>Explore an inspiring universe</h1><br>
+  <p class="lead">15 diverse categories. Thousands of amazing projects.</p>
+</div>
+
+<div class="row">
+  <ul class="category">
+  <% @categories.each do |category|  %>
+    <li><%= link_to category.name, category %></li>
+<% end  %>
+  <ul>
+</div><br>
+
+<div class="row">
+<% @projects.each do |project| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <%= link_to image_for(project), project %>
+      <div class="caption">
+        <h5><%= link_to project.name, project %></h5>
+        <p><%= truncate(project.description, length: 150, seperator: ' ') %></p>
+       <%= render 'shared/progress_bar', object: project.pledge_percentage %>
+
+        <div class="info-box">
+        	<ul>
+            <li> 
+                <span><strong><%= pledge_result(project) %></strong></span><br>
+                <span>Funded</span>
+              </li>
+        	   <li> 
+        	   		<span><strong><%= number_to_currency(project.pledge_amount_sum, precision:0) %></strong></span><br>
+        	   		<span>Pledged</span>
+        	   	</li>
+        	   	<li> 
+        	   		<span><strong><%= pledge_end_format(project) %></strong></span><br>
+        	   		<span>To Go</span>
+        	   	</li>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+</div>

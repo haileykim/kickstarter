@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829122201) do
+ActiveRecord::Schema.define(version: 20140903115625) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   create_table "favorites", force: true do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140829122201) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "user_id"
+    t.string   "slug"
   end
 
   create_table "tags", force: true do |t|

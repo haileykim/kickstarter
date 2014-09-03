@@ -1,13 +1,18 @@
 class ProjectsController < ApplicationController
 
+  before_action :set_project, only: [:show]
+  before_action :set_current_project, only: [:edit, :update, :destroy]
   before_action :require_signin, except: [:index, :show]
+  
 
   def index
+    @categories = Category.all
     @projects = Project.pledging
+    @recent_projects = Project.recent
+    @endsoon_projects = Project.endsoon
   end
 
   def show
-    @project = Project.find(params[:id])
     @pledges = @project.pledges.order(created_at: :desc)
     @backers = @project.backers
     @fans = @project.fans
@@ -35,12 +40,10 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = current_user.projects.find(params[:id])
   end
 
   def update
-    @project = current_user.projects.find(params[:id])
-  	if @project.update(project_params)
+ 	if @project.update(project_params)
   	  redirect_to @project, notice: 'Your project is successfully edited!'
     else
       render 'edit'
@@ -48,7 +51,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = current_user.projects.find(params[:id])
     @project.delete
     redirect_to root_path, notice: 'Your project is gone!'
   end
@@ -56,6 +58,14 @@ class ProjectsController < ApplicationController
 private
   def project_params
   	params.require(:project).permit(:name, :description, :target_pledge_amount, :pledging_ends_on, :image, category_ids: [])
+  end
+
+  def set_project
+    @project = Project.find_by!(slug: params[:id])
+  end
+
+  def set_current_project
+    @project = current_user.projects.find_by!(slug: params[:id])
   end
 
 end

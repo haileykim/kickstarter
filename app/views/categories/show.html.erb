@@ -1,0 +1,6 @@
+<div class="container">
+<h2><%= @category.name %>: <%= pluralize(@projects.count, 'project') %>
+</h2>
+
+<%= render 'shared/thumbnail_big', object: @projects %>
+</div>

@@ -13,27 +13,31 @@ class Project < ActiveRecord::Base
 
   has_attached_file :image
 
-  validates :name, :pledging_ends_on, presence: true
+  before_validation :generate_slug
+  
+  validates :name, presence: true, uniqueness: true
+  validates :slug, uniqueness: true
+  validates :pledging_ends_on, presence: true
   validates :description, length: { minimum: 5 }
   validates :target_pledge_amount, numericality: {
-  	 greater_than: 0
+     greater_than: 0
   }
-  validates :website, url: true
   validates_attachment :image, 
   :content_type => { :content_type => ['image/jpeg', 'image/png'] },
   :size => { :less_than => 1.megabyte }
 
+  
+  scope :pledging, -> { where('pledging_ends_on > ?', Time.now) }
 
+  scope :recent, ->(max=4) { pledging.order(created_at: :desc).limit(max) }
   
-  
+  scope :endsoon, ->(max=4) { pledging.order(pledging_ends_on: :asc).limit(max)  }
 
   def expired?
   	pledging_ends_on < Time.now
   end
 
-  def self.pledging
-    where('pledging_ends_on > ?', Time.now).order(pledging_ends_on: :asc)
-  end
+ 
 
   def pledge_amount_sum
     pledges.sum(:amount)
@@ -47,4 +51,11 @@ class Project < ActiveRecord::Base
     pledge_percentage >= 100
   end
 
+  def generate_slug
+    self.slug ||= name.parameterize if name
+  end
+
+  def to_param
+    slug
+  end
 end

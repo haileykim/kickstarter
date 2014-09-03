@@ -1,7 +1,9 @@
+<% content_for(:title, @project.name) %>
+
+<div class="container">
 <div class="header">
     <h1><%= @project.name %></h1>
     <h4>by <%= link_to @project.user.name, @project.user %></h4>
-
 </div>
 
 
@@ -14,7 +16,7 @@
 
   <div class="row">
     <% @categories.each do |category| %>
-      <span class="label label-default"><%= category.name %></span>
+      <span class="label label-default"><%= link_to category.name, category %></span>
     <% end %>
   </div>
 
@@ -91,6 +93,7 @@
 <% end %>
 
  </div>
+</div>
 </div>
 </div>
 

@@ -16,6 +16,12 @@ body > .container {
 	font-weight: bold;
 }
 
+.jumbotron {
+	background-color: transparent;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
 
 .btn-lg {
 	height: 70px;
@@ -185,3 +191,30 @@ h5 a {
 input[type="radio"], input[type="checkbox"] {
  margin: 4px 8px 0px 5px;
  }
+
+ .category {
+    border: 0px 20px;
+
+    li {
+  	display: inline-block;
+  	border: 1px solid #d9d9de;
+  	background-color: #FFFFFF;
+  	width: 17%;
+  	font-size: 20px;
+  	color: #828587;
+  	text-align: center;
+  	border-radius: 5px;
+  	padding: 35px 5px;
+  	margin-right: 20px;
+  	margin-bottom: 20px;
+  	text-decoration: none;
+  	
+  	a {
+  		color: #828587;
+  	}
+  	}
+ }
+
+ .label a {
+ 	color: #FFFFFF;
+ } 

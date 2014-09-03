@@ -1,4 +1,6 @@
+<% content_for(:title, @user.name)  %>
 
+<div class="container">
 <div class="profile-box">
 	<div class ="profile-image" >
        <%= profile_image_for(@user, size: 160) %>
@@ -44,3 +46,5 @@
  <h3>Favorites (<%= @favorite_projects.count %>)</h3>
    <%= render 'shared/thumbnail_small', object: @favorite_projects %>
 <% end %>
+
+</div>
